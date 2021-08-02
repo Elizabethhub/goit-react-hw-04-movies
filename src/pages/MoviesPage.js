@@ -15,6 +15,7 @@ class MoviesPage extends Component {
     movies: [],
     currentPage: 1,
     isLoading: false,
+    error: null,
   };
 
   componentDidMount() {
@@ -46,29 +47,9 @@ class MoviesPage extends Component {
       query: query,
       movies: [],
       currentPage: 1,
+      error: null,
     });
     this.props.history.push({ search: `query=${query}` });
-  };
-
-  getData = async (flag) => {
-    const { query, currentPage } = this.state;
-
-    const options = {
-      query,
-      currentPage,
-    };
-
-    this.setState({ isLoading: true });
-
-    await searchMovie(options)
-      .then((response) =>
-        this.setState((prevState) => ({
-          movies: response,
-          currentPage: prevState.currentPage + 1,
-        }))
-      )
-      .catch((error) => console.log(`error`, error))
-      .finally(() => this.setState({ isLoading: false }));
   };
 
   getMovies = async () => {
@@ -88,7 +69,7 @@ class MoviesPage extends Component {
           currentPage: prevState.currentPage + 1,
         }))
       )
-      .catch((error) => console.log(`error`, error))
+      .catch((error) => this.setState({ error }))
       .finally(() => this.setState({ isLoading: false }));
   };
 
@@ -113,9 +94,10 @@ class MoviesPage extends Component {
       .finally(() => this.setState({ isLoading: false }));
   };
   render() {
-    const { movies, isLoading } = this.state;
+    const { movies, isLoading, error } = this.state;
     return (
       <>
+        {error && <h1>Ой, ошибка, всё пропало!!!</h1>}
         <SearchForm onSubmit={this.onChangeQuery} />
         {!!movies.length && <MovieList movies={movies} />}
         <Route path={`${this.props.match.url}/:movieId`} component={MovieDetailsPage} exact={false} />
