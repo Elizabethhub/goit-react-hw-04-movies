@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Wrapper } from "../components/searchform/SearchFormStyled";
-import TrendingMovies from "../components/trendingMovies/TrendingMovies";
+import TrendingMovies from "../components/trandingMovies/TrendingMovies";
 import { getTrendingMovies } from "../services/Api";
 
 //добавить прелоадер

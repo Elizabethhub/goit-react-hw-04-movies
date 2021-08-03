@@ -34,7 +34,7 @@ class MoviesPage extends Component {
       this.getMovies(this.state.query);
     }
 
-    if (this.state.movies !== prevState.movies) {
+    if (this.state.movies !== prevState.movies && this.currentPage > 1) {
       window.scrollTo({
         top: document.documentElement.scrollHeight,
         behavior: "smooth",
@@ -100,7 +100,6 @@ class MoviesPage extends Component {
         {error && <h1>Ой, ошибка, всё пропало!!!</h1>}
         <SearchForm onSubmit={this.onChangeQuery} />
         {!!movies.length && <MovieList movies={movies} />}
-        <Route path={`${this.props.match.url}/:movieId`} component={MovieDetailsPage} exact={false} />
         {!!movies.length && !isLoading && <Button loadMore={this.loadMore} />}
         {isLoading && <AppLoader />}
       </>
