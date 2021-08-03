@@ -1,5 +1,5 @@
 import React from "react";
-import { ButtonStyled } from "./BuuttonStyled";
+import { ButtonStyled } from "./ButtonStyled";
 
 const Button = ({ loadMore }) => {
   return (

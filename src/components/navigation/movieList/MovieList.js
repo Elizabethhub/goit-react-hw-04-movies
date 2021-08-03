@@ -12,7 +12,7 @@ const MovieList = ({ movies, location }) => {
             className="title"
             to={{
               pathname: `/movies/${movie.id}`,
-              state: { from: location.pathname },
+              state: { from: location },
             }}
           >
             <img
